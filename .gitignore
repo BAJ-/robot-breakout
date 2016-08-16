@@ -1,5 +1,6 @@
-# Node
+# Folders
 node_modules
+build
 
 # Npm
 npm-debug.log
