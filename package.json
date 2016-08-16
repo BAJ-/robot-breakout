@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Classic breakout game but with robots",
   "scripts": {
-    "babel": "babel --presets es2015 js/main.js -w -o build/main.bundle.js",
+    "babel": "babel --watch js --out-dir build",
     "start": "npm run babel & ./node_modules/http-server/bin/http-server . -p 3000"
   },
   "keywords": [
