@@ -1,3 +1,9 @@
+/*
+ * Game core for Robots Order BreakOut Trepidation!
+ *
+ * @canvas = reference to an HTML5 canvas element.
+ */
+
 'use strict';
 import Ball from 'Ball.js';
 

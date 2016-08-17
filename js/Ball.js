@@ -1,3 +1,12 @@
+/*
+ * Currently stupidly specific ball class
+ *
+ * @ctx = canvas context.
+ * @radius = ball radius
+ * @startX = starting position x-coordinate
+ * @startY = starting position y-coordinate
+ */
+
 'use strict';
 
 export default class {
