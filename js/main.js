@@ -1,3 +1,5 @@
 import RobotCore from 'RobotCore.js';
-let core = new RobotCore();
-core.run();
+
+let canvas = document.getElementById('breakout-canvas');
+let game = new RobotCore(canvas);
+game.start();
