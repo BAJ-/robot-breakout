@@ -6,8 +6,8 @@ import Ball from 'Ball.js';
 
 const actorsDefinitions = {
   ball: {
-    xVelocity: 0,
-    yVelocity: 0,
+    xVelocity: 1,
+    yVelocity: -1,
     radius: 10
   }
 };
