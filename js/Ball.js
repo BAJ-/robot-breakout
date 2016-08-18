@@ -19,6 +19,7 @@ export default class {
     this._endAngle = eA;
 
     this._velocityVector = new Vector(xV, yV);
+    this.isMachine = true;
   }
 
   setPosition(x, y) {
@@ -56,7 +57,8 @@ export default class {
       positionVector: this._positionVector,
       velocityVector: this._velocityVector,
       flipDirection: (d)=> this.flipDirection(d),
-      visible: true
+      visible: true,
+      isMachine: this.isMachine
     }
   }
 }
