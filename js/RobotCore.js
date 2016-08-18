@@ -24,6 +24,7 @@ export default class {
   drawScene() {
     this.clearScene();
     this._actors.getVisibleActors().forEach((e)=> this.drawElement(e));
+    requestAnimationFrame(()=> this.drawScene());
   }
 
   drawElement(e) {
@@ -35,7 +36,7 @@ export default class {
   }
 
   startGameLoop() {
-    setInterval(()=> this.drawScene(), 10);
+    requestAnimationFrame(()=> this.drawScene());
   }
 
   start() {
