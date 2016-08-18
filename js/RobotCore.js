@@ -24,11 +24,12 @@ export default class {
   drawScene() {
     this.clearScene();
     this._actors.moveActors();
-    this._actors.getActors().forEach((e)=> this.drawElement(e));
+    this._actors.getActors().forEach((actor)=> this.drawElement(actor));
     requestAnimationFrame(()=> this.drawScene());
   }
 
-  drawElement(e) {
+  drawElement(actor) {
+    let e = actor.getAnatomy();
     if (e.visible) {
       this._ctx.beginPath();
       this._ctx[e.drawType].apply(this._ctx, e.params);
@@ -51,6 +52,16 @@ export default class {
       if (futureY < e.radius) {
         e.flipDirection('h');
       }
+      this._actors.getAffecters().forEach((a)=> {
+        let actor = a.getAnatomy();
+        let actorX = actor.positionVector.x();
+        let eX = e.posistionVector.x();
+        if (futureY > this._canvas.height - e.radius) {
+          if (eX > actorX && eX < actorX + actor.width) {
+            e.flipDirection('h');
+          }
+        }
+      });
     }
   }
 

@@ -12,6 +12,7 @@ export default class {
     this._height = height;
 
     this.isMachine = false;
+    this.canAffect = true;
   }
 
   getAnatomy() {
@@ -24,6 +25,8 @@ export default class {
         this._width,
         this._height
       ],
+      width: this._width,
+      positionVector: this._positionVector,
       visible: true,
       isMachine: this.isMachine
     }

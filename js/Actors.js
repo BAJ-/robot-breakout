@@ -20,6 +20,7 @@ const actorsDefinitions = {
 export default class {
   constructor(canvasWidth, canvasHeight) {
     this._actorRefs = [];
+    this._actorAffect = [];
 
     // Initializing ball
     let bX = canvasWidth / 2;
@@ -34,7 +35,11 @@ export default class {
   }
 
   getActors() {
-    return this._actorRefs.map((e)=> { return e.getAnatomy(); });
+    return this._actorRefs;
+  }
+
+  getAffecters() {
+    return this._actorAffect;
   }
 
   moveActors() {
@@ -43,5 +48,8 @@ export default class {
 
   addActor(actor) {
     this._actorRefs.push(actor);
+    if (actor.canAffect) {
+      this._actorAffect.push(actor);
+    }
   }
 }
