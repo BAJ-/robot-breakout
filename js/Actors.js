@@ -15,7 +15,6 @@ const actorsDefinitions = {
 export default class {
   constructor(canvasWidth, canvasHeight) {
     this._actorRefs = [];
-    this._actors = [];
 
     // Initializing ball
     let bX = canvasWidth / 2;
@@ -24,12 +23,15 @@ export default class {
     this.addActor(new Ball(bX, bY, ball.xVelocity, ball.yVelocity, ball.radius));
   }
 
-  getVisibleActors() {
-    return this._actors.filter((a)=> a.visible) || [];
+  getActors() {
+    return this._actorRefs.map((e)=> { return e.getAnatomy(); });
+  }
+
+  moveActors() {
+    this._actorRefs.forEach((e)=> e.move());
   }
 
   addActor(actor) {
     this._actorRefs.push(actor);
-    this._actors.push(actor.getAnatomy());
   }
 }
