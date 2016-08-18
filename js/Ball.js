@@ -8,20 +8,45 @@
  */
 
 'use strict';
+import Vector from 'Vector.js';
 
 export default class {
-  constructor(ctx, radius, startX, startY) {
-    this._ctx = ctx;
-    this._radius = radius;
-    this._x = startX;
-    this._y = startY;
+  constructor(x, y, xV, yV, r, color = '#FFFFFF', sA = 0, eA = (Math.PI * 2)) {
+    this._color = color;
+    this._radius = r;
+    this._positionVector = new Vector(x, y);
+    this._startAngle = sA;
+    this._endAngle = eA;
+
+    this._velocityVector = new Vector(xV, yV);
   }
 
-  drawBall() {
-    this._ctx.beginPath();
-    this._ctx.arc(this._x, this._y, this._radius, 0, Math.PI*2);
-    this._ctx.fillStyle = "#FFFFFF";
-    this._ctx.fill();
-    this._ctx.closePath();
+  setPosition(x, y) {
+    this._positionVector.setCoordinates(x, y);
+  }
+
+  move() {
+    this._positionVector.add(this._velocityVector);
+  }
+
+  getVelocity() {
+    return this._velocityVector.length();
+  }
+
+  getAnatomy() {
+    return {
+      radius: this._radius,
+      color: this._color,
+      drawType: 'arc',
+      params: [
+        this._positionVector.x(),
+        this._positionVector.y(),
+        this._radius,
+        this._startAngle,
+        this._endAngle
+      ],
+      positionVector: this._positionVector,
+      visible: true
+    }
   }
 }

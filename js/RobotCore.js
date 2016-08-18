@@ -5,17 +5,14 @@
  */
 
 'use strict';
-import Ball from 'Ball.js';
+import Actors from 'Actors.js';
 
 export default class {
   constructor(canvas) {
     this._canvas = canvas;
     this._ctx = this._canvas.getContext("2d");
 
-    // Initializing ball
-    let startX = this._canvas.width / 2;
-    let startY = this._canvas.height - 25;
-    this._ball = new Ball(this._ctx, 10, startX, startY);
+    this._actors = new Actors(this._canvas.width, this._canvas.height);
   }
 
   clearScene() {
@@ -26,7 +23,15 @@ export default class {
 
   drawScene() {
     this.clearScene();
-    this._ball.drawBall();
+    this._actors.getVisibleActors().forEach((e)=> this.drawElement(e));
+  }
+
+  drawElement(e) {
+    this._ctx.beginPath();
+    this._ctx[e.drawType].apply(this._ctx, e.params);
+    this._ctx.fillStyle = e.color;
+    this._ctx.fill();
+    this._ctx.closePath();
   }
 
   startGameLoop() {
