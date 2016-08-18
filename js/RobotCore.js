@@ -48,7 +48,7 @@ export default class {
       if (futureX > this._canvas.width - e.radius || futureX < e.radius) {
         e.flipDirection('v');
       }
-      if (futureY > this._canvas.height - e.radius || futureY < e.radius) {
+      if (futureY < e.radius) {
         e.flipDirection('h');
       }
     }
