@@ -36,11 +36,11 @@ export default class {
       this._ctx.fill();
       this._ctx.closePath();
 
-      this.handleWallCollisions(e);
+      this.handleCollisions(e);
     }
   }
 
-  handleWallCollisions(e) {
+  handleCollisions(e) {
     if (e.isMachine) {
       // This is not pretty. Will fix it later.
       let futureX = e.positionVector.x() + e.velocityVector.x();
