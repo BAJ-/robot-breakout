@@ -24,8 +24,8 @@ export default class {
 
   // Adds given vector to vector instance.
   add(vector) {
-    this._x += vector.x;
-    this._y += vector.y;
+    this._x += vector.x();
+    this._y += vector.y();
   }
 
   // Flips the vector instance over the y-axis
