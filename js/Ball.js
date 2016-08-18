@@ -29,6 +29,14 @@ export default class {
     this._positionVector.add(this._velocityVector);
   }
 
+  flipDirection(d) {
+    if (d === 'v') {
+      this._velocityVector.flipVertically();
+    } else if (d === 'h') {
+      this._velocityVector.flipHorizontally();
+    }
+  }
+
   getVelocity() {
     return this._velocityVector.length();
   }
@@ -46,6 +54,8 @@ export default class {
         this._endAngle
       ],
       positionVector: this._positionVector,
+      velocityVector: this._velocityVector,
+      flipDirection: (d)=> this.flipDirection(d),
       visible: true
     }
   }

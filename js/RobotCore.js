@@ -35,6 +35,20 @@ export default class {
       this._ctx.fillStyle = e.color;
       this._ctx.fill();
       this._ctx.closePath();
+
+      this.handleWallCollisions(e);
+    }
+  }
+
+  handleWallCollisions(e) {
+    // This is not pretty. Will fix it later.
+    let futureX = e.positionVector.x() + e.velocityVector.x();
+    let futureY = e.positionVector.y() + e.velocityVector.y();
+    if (futureX > this._canvas.width - e.radius || futureX < e.radius) {
+      e.flipDirection('v');
+    }
+    if (futureY > this._canvas.height - e.radius || futureY < e.radius) {
+      e.flipDirection('h');
     }
   }
 
