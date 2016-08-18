@@ -23,16 +23,19 @@ export default class {
 
   drawScene() {
     this.clearScene();
-    this._actors.getVisibleActors().forEach((e)=> this.drawElement(e));
+    this._actors.moveActors();
+    this._actors.getActors().forEach((e)=> this.drawElement(e));
     requestAnimationFrame(()=> this.drawScene());
   }
 
   drawElement(e) {
-    this._ctx.beginPath();
-    this._ctx[e.drawType].apply(this._ctx, e.params);
-    this._ctx.fillStyle = e.color;
-    this._ctx.fill();
-    this._ctx.closePath();
+    if (e.visible) {
+      this._ctx.beginPath();
+      this._ctx[e.drawType].apply(this._ctx, e.params);
+      this._ctx.fillStyle = e.color;
+      this._ctx.fill();
+      this._ctx.closePath();
+    }
   }
 
   startGameLoop() {
