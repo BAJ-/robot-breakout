@@ -7,28 +7,25 @@ import Vector from 'Vector.js';
 
 export default class {
   constructor(x, y, width, height, color = '#FFFFFF') {
-    this._positionVector = new Vector(x, y);
-    this._width = width;
-    this._height = height;
+    this.positionVector = new Vector(x, y);
+    this.width = width;
+    this.height = height;
 
     this.isMachine = false;
     this.canAffect = true;
+    this.visible = true;
   }
 
-  getAnatomy() {
+  getDrawInfo() {
     return {
-      color: this._color,
       drawType: 'rect',
+      color: this._color,
       params: [
-        this._positionVector.x(),
-        this._positionVector.y(),
-        this._width,
-        this._height
-      ],
-      width: this._width,
-      positionVector: this._positionVector,
-      visible: true,
-      isMachine: this.isMachine
-    }
+        this.positionVector.x(),
+        this.positionVector.y(),
+        this.width,
+        this.height
+      ]
+    };
   }
 }

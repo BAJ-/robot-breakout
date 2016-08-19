@@ -29,36 +29,35 @@ export default class {
   }
 
   drawElement(actor) {
-    let e = actor.getAnatomy();
-    if (e.visible) {
+    if (actor.visible) {
+      let drawInfo = actor.getDrawInfo();
       this._ctx.beginPath();
-      this._ctx[e.drawType].apply(this._ctx, e.params);
-      this._ctx.fillStyle = e.color;
+      this._ctx[drawInfo.drawType].apply(this._ctx, drawInfo.params);
+      this._ctx.fillStyle = drawInfo.color;
       this._ctx.fill();
       this._ctx.closePath();
 
-      this.handleCollisions(e);
+      this.handleCollisions(actor);
     }
   }
 
-  handleCollisions(e) {
-    if (e.isMachine) {
+  handleCollisions(actor) {
+    if (actor.isMachine) {
       // This is not pretty. Will fix it later.
-      let futureX = e.positionVector.x() + e.velocityVector.x();
-      let futureY = e.positionVector.y() + e.velocityVector.y();
-      if (futureX > this._canvas.width - e.radius || futureX < e.radius) {
-        e.flipDirection('v');
+      let futureX = actor.positionVector.x() + actor.velocityVector.x();
+      let futureY = actor.positionVector.y() + actor.velocityVector.y();
+      if (futureX > this._canvas.width - actor.radius || futureX < actor.radius) {
+        actor.flipDirection('v');
       }
-      if (futureY < e.radius) {
-        e.flipDirection('h');
+      if (futureY < actor.radius) {
+        actor.flipDirection('h');
       }
-      this._actors.getAffecters().forEach((a)=> {
-        let actor = a.getAnatomy();
+      this._actors.getAffecters().forEach((aff)=> {
+        let affX = aff.positionVector.x();
         let actorX = actor.positionVector.x();
-        let eX = e.posistionVector.x();
-        if (futureY > this._canvas.height - e.radius) {
-          if (eX > actorX && eX < actorX + actor.width) {
-            e.flipDirection('h');
+        if (futureY > this._canvas.height - actor.radius) {
+          if (actorX > affX && actorX < affX + aff.width) {
+            actor.flipDirection('h');
           }
         }
       });

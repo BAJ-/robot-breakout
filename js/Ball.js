@@ -13,52 +13,47 @@ import Vector from 'Vector.js';
 export default class {
   constructor(x, y, xV, yV, r, color = '#FFFFFF', sA = 0, eA = (Math.PI * 2)) {
     this._color = color;
-    this._radius = r;
-    this._positionVector = new Vector(x, y);
+    this.radius = r;
+    this.positionVector = new Vector(x, y);
     this._startAngle = sA;
     this._endAngle = eA;
 
-    this._velocityVector = new Vector(xV, yV);
+    this.velocityVector = new Vector(xV, yV);
     this.isMachine = true;
+    this.visible = true;
   }
 
   setPosition(x, y) {
-    this._positionVector.setCoordinates(x, y);
+    this.positionVector.setCoordinates(x, y);
   }
 
   move() {
-    this._positionVector.add(this._velocityVector);
+    this.positionVector.add(this.velocityVector);
   }
 
   flipDirection(d) {
     if (d === 'v') {
-      this._velocityVector.flipVertically();
+      this.velocityVector.flipVertically();
     } else if (d === 'h') {
-      this._velocityVector.flipHorizontally();
+      this.velocityVector.flipHorizontally();
     }
   }
 
   getVelocity() {
-    return this._velocityVector.length();
+    return this.velocityVector.length();
   }
 
-  getAnatomy() {
+  getDrawInfo() {
     return {
-      radius: this._radius,
-      color: this._color,
       drawType: 'arc',
+      color: this._color,
       params: [
-        this._positionVector.x(),
-        this._positionVector.y(),
-        this._radius,
+        this.positionVector.x(),
+        this.positionVector.y(),
+        this.radius,
         this._startAngle,
         this._endAngle
-      ],
-      positionVector: this._positionVector,
-      velocityVector: this._velocityVector,
-      flipDirection: (d)=> this.flipDirection(d),
-      visible: true,
-      isMachine: this.isMachine
-    }
+      ]
+    };
   }
 }
