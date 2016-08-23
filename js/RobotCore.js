@@ -31,16 +31,16 @@ export default class {
   }
 
   _drawScene() {
-    this.clearScene();
+    this._clearScene();
     // TODO: Draw scene.
 
     if (this._running) {
-      requestAnimationFrame(()=> this.drawScene());
+      requestAnimationFrame(()=> this._drawScene());
     }
   }
 
   _startGameLoop() {
-    requestAnimationFrame(()=> this.drawScene());
+    requestAnimationFrame(()=> this._drawScene());
   }
 
   // This is kinda out of place here, but haven't found a better
