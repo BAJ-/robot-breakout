@@ -11,45 +11,44 @@
 import Vector from 'Vector.js';
 
 export default class {
-  constructor(x, y, xV, yV, r, color = '#FFFFFF', sA = 0, eA = (Math.PI * 2)) {
-    this._color = color;
+  constructor(x, y, xV, yV, r, color = '#FFFFFF') {
+    this.color = color;
     this.radius = r;
-    this.positionVector = new Vector(x, y);
-    this._startAngle = sA;
-    this._endAngle = eA;
 
-    this.velocityVector = new Vector(xV, yV);
-    this.isMachine = true;
-    this.visible = true;
+    // We are drawing a circle here so we start
+    // from 0 and end at 2*PI.
+    this._startAngle = 0;
+    this._endAngle = Math.PI * 2;
+
+    // The ball instance current position vector.
+    this.position = new Vector(x, y);
+
+    // The ball instance current velocity vector.
+    this.velocity = new Vector(xV, yV);
+
+    // Balls are computer controlled.
+    this.computer = true;
   }
 
+  // Move ball instance to specific position.
   setPosition(x, y) {
-    this.positionVector.setCoordinates(x, y);
+    this.position.setCoordinates(x, y);
   }
 
+  // Moves ball according to the velocity vector.
   move() {
-    this.positionVector.add(this.velocityVector);
+    this.position.add(this.velocity);
   }
 
-  flipDirection(d) {
-    if (d === 'v') {
-      this.velocityVector.flipVertically();
-    } else if (d === 'h') {
-      this.velocityVector.flipHorizontally();
-    }
-  }
-
-  getVelocity() {
-    return this.velocityVector.length();
-  }
-
+  // Returns relevant drawing info related to the
+  // ball instance.
   getDrawInfo() {
     return {
       drawType: 'arc',
-      color: this._color,
+      color: this.color,
       params: [
-        this.positionVector.x(),
-        this.positionVector.y(),
+        this.position.x,
+        this.position.y,
         this.radius,
         this._startAngle,
         this._endAngle

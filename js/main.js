@@ -1,5 +1,12 @@
 import RobotCore from 'RobotCore.js';
 
-let canvas = document.getElementById('breakout-canvas');
-let game = new RobotCore(canvas);
+let game = new RobotCore(document.getElementById('breakout-canvas'));
 game.start();
+
+document.addEventListener('keydown', (e)=> {
+
+});
+
+document.addEventListener('keyup', (e)=> {
+
+});

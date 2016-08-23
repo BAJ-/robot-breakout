@@ -6,69 +6,58 @@
 
 'use strict';
 import Actors from 'Actors.js';
+import Collision from 'Collision.js';
 
 export default class {
   constructor(canvas) {
+    // Player settings.
+    this._score = 0;
+    this._lives = 3;
+
+    // Game settings.
+    this._running = false;
+
     this._canvas = canvas;
     this._ctx = this._canvas.getContext("2d");
 
     this._actors = new Actors(this._canvas.width, this._canvas.height);
+
+    this._collision = new Collision();
   }
 
-  clearScene() {
+  _clearScene() {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-    this._ctx.fillStyle = "#9ea7b8";
-    this._ctx.fillRect(0, 0, this._canvas.width, this._canvas.height);
+    // TODO: Draw background.
   }
 
-  drawScene() {
+  _drawScene() {
     this.clearScene();
-    this._actors.moveActors();
-    this._actors.getActors().forEach((actor)=> this.drawElement(actor));
-    requestAnimationFrame(()=> this.drawScene());
-  }
+    // TODO: Draw scene.
 
-  drawElement(actor) {
-    if (actor.visible) {
-      let drawInfo = actor.getDrawInfo();
-      this._ctx.beginPath();
-      this._ctx[drawInfo.drawType].apply(this._ctx, drawInfo.params);
-      this._ctx.fillStyle = drawInfo.color;
-      this._ctx.fill();
-      this._ctx.closePath();
-
-      this.handleCollisions(actor);
+    if (this._running) {
+      requestAnimationFrame(()=> this.drawScene());
     }
   }
 
-  handleCollisions(actor) {
-    if (actor.isMachine) {
-      // This is not pretty. Will fix it later.
-      let futureX = actor.positionVector.x() + actor.velocityVector.x();
-      let futureY = actor.positionVector.y() + actor.velocityVector.y();
-      if (futureX > this._canvas.width - actor.radius || futureX < actor.radius) {
-        actor.flipDirection('v');
-      }
-      if (futureY < actor.radius) {
-        actor.flipDirection('h');
-      }
-      this._actors.getAffecters().forEach((aff)=> {
-        let affX = aff.positionVector.x();
-        let actorX = actor.positionVector.x();
-        if (futureY > this._canvas.height - actor.radius) {
-          if (actorX > affX && actorX < affX + aff.width) {
-            actor.flipDirection('h');
-          }
-        }
-      });
-    }
+  _startGameLoop() {
+    requestAnimationFrame(()=> this.drawScene());
   }
 
-  startGameLoop() {
-    requestAnimationFrame(()=> this.drawScene());
+  // This is kinda out of place here, but haven't found a better
+  // place for it yet.
+  movePaddle(direction) {
+    // TODO: Implement paddle movement.
   }
 
   start() {
-    this.startGameLoop();
+    this._startGameLoop();
+  }
+
+  pause() {
+    // TODO: Implement some kind of pause.
+  }
+
+  stop() {
+    this._running = false;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * This class represent a game paddle
+ * This class represent a game brick.
  */
 
 'use strict';
@@ -13,20 +13,10 @@ export default class {
 
     this.position = new Vector(x, y);
 
-    this.computer = false;
+    this.computer = true;
   }
 
-  // Setting the paddle to a specific position.
-  setPosition(x, y) {
-    this.position.setCoordinates(x, y);
-  }
-
-  move() {
-    // TODO: Implement moveing paddle.
-  }
-
-  // Returns relevant drawing information related to
-  // the paddle.
+  // Returns drawing information for a brick instance.
   getDrawInfo() {
     return {
       drawType: 'rect',
