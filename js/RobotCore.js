@@ -22,7 +22,7 @@ export default class {
 
     this._actors = new Actors(this._canvas.width, this._canvas.height);
 
-    this._motion = new Motion();
+    this._motion = new Motion(this._actors);
   }
 
   _clearScene() {
@@ -32,6 +32,7 @@ export default class {
 
   _drawScene() {
     this._clearScene();
+    this._motion.moveComputerActors();
     this._drawActors();
     // TODO: Draw scene.
 

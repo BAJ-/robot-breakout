@@ -6,19 +6,19 @@
 import Vector from 'Vector.js';
 
 export default class {
-  constructor() {
-    this._actors = {};
+  constructor(actorsInstance) {
+    this._actorsInstance = actorsInstance;
     this._canvasObj = {};
   }
 
-  // Returns actors that needs updating.
-  // TODO: Write method.
-  getCollisionUpdates(canvasWidth, canvasHeight, actorObj) {
-    return {}
+  moveComputerActors() {
+    let actors = this._actorsInstance.get();
+    this._actorsInstance.update(actors);
+    this._handleCollision();
   }
 
   // Handles both ball, brick, paddle, and wall collisions.
-  handleCollision() {
+  _handleCollision() {
 
   }
 }

@@ -29,6 +29,7 @@ export default class {
   // Update actors according to provided updates.
   update(updatedActors) {
     // TODO: write upate method.
+    this._actors = updatedActors;
   }
 
   _initActors() {
