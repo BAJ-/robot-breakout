@@ -74,6 +74,7 @@ export default class {
   }
 
   start() {
+    this._running = true;
     this._startGameLoop();
   }
 
