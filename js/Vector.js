@@ -16,8 +16,8 @@ export default class {
 
   // Adds given vector to vector instance.
   add(vector) {
-    this.x += vector.x();
-    this.y += vector.y();
+    this.x += vector.x;
+    this.y += vector.y;
   }
 
   // Multiplies vector instance by given value.
