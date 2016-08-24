@@ -6,7 +6,7 @@
 
 'use strict';
 import Actors from 'Actors.js';
-import Collision from 'Collision.js';
+import Motion from 'Motion.js';
 
 export default class {
   constructor(canvas) {
@@ -22,7 +22,7 @@ export default class {
 
     this._actors = new Actors(this._canvas.width, this._canvas.height);
 
-    this._collision = new Collision();
+    this._collision = new Motion();
   }
 
   _clearScene() {
