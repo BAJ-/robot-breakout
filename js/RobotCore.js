@@ -22,7 +22,7 @@ export default class {
 
     this._actors = new Actors(this._canvas.width, this._canvas.height);
 
-    this._collision = new Motion();
+    this._motion = new Motion();
   }
 
   _clearScene() {
