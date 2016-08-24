@@ -32,11 +32,35 @@ export default class {
 
   _drawScene() {
     this._clearScene();
+    this._drawActors();
     // TODO: Draw scene.
 
     if (this._running) {
       requestAnimationFrame(()=> this._drawScene());
     }
+  }
+
+  // Draw all the current actors.
+  _drawActors() {
+    let allActors = this._actors.get();
+    for (let actorName in allActors) {
+      let actor = allActors[actorName];
+      if (Array.isArray(actor)) {
+        actor.forEach((a)=> this._drawShape(a));
+      } else {
+        this._drawShape(actor);
+      }
+    }
+  }
+
+  _drawShape(actor) {
+    let drawInfo = actor.getDrawInfo();
+    let ctx = this._ctx;
+    ctx.beginPath();
+    ctx[drawInfo.drawType].apply(ctx, drawInfo.params);
+    ctx.fillStyle = drawInfo.color;
+    ctx.fill();
+    ctx.closePath();
   }
 
   _startGameLoop() {
