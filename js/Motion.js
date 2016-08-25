@@ -38,7 +38,7 @@ export default class {
           if (futureX > canvasWidth - ball.radius || futureX < ball.radius) {
             ball.velocity.flipVertically();
           }
-          if (futureY > canvasHeight - ball.radius || futureY < ball.radius) {
+          if (futureY < ball.radius) {
             ball.velocity.flipHorizontally();
           }
         });
