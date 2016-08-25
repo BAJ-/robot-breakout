@@ -68,10 +68,11 @@ export default class {
     requestAnimationFrame(()=> this._drawScene());
   }
 
-  // This is kinda out of place here, but haven't found a better
-  // place for it yet.
-  movePaddle(direction) {
+  // Given a keyCode from an event listener it takes
+  // appropriate actions.
+  handleKeyPress(keyCode) {
     // TODO: Implement paddle movement.
+    // TODO: Implement pause.
   }
 
   start() {
