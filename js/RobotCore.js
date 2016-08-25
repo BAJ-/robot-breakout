@@ -32,7 +32,7 @@ export default class {
 
   _drawScene() {
     this._clearScene();
-    this._motion.moveComputerActors();
+    this._motion.moveComputerActors(this._canvas.width, this._canvas.height);
     this._drawActors();
     // TODO: Draw scene.
 

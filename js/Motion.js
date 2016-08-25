@@ -11,7 +11,7 @@ export default class {
     this._canvasObj = {};
   }
 
-  moveComputerActors() {
+  moveComputerActors(canvasWidth, canvasHeight) {
     let actors = this._actorsInstance.get();
     for (let actorName in actors) {
       let actor = actors[actorName];
@@ -22,11 +22,27 @@ export default class {
       }
     }
     this._actorsInstance.update(actors);
-    this._handleCollision();
+    this._handleCollision(canvasWidth, canvasHeight, actors);
   }
 
   // Handles both ball, brick, paddle, and wall collisions.
-  _handleCollision() {
-
+  // TODO: Implement real collision detection.
+  _handleCollision(canvasWidth, canvasHeight, actors) {
+    // Extremely simple collision detection only
+    // for balls.
+    for (let actorName in actors) {
+      if (actorName === 'balls') {
+        actors[actorName].forEach((ball)=> {
+          let futureX = ball.position.x + ball.velocity.x;
+          let futureY = ball.position.y + ball.velocity.y;
+          if (futureX > canvasWidth - ball.radius || futureX < ball.radius) {
+            ball.velocity.flipVertically();
+          }
+          if (futureY > canvasHeight - ball.radius || futureY < ball.radius) {
+            ball.velocity.flipHorizontally();
+          }
+        });
+      }
+    }
   }
 }
