@@ -16,6 +16,8 @@ export default class {
 
     // Game settings.
     this._running = false;
+    this._rightPressed = false;
+    this._leftPressed = false;
 
     this._canvas = canvas;
     this._ctx = this._canvas.getContext("2d");
@@ -70,8 +72,13 @@ export default class {
 
   // Given a keyCode from an event listener it takes
   // appropriate actions.
-  handleKeyPress(keyCode) {
-    // TODO: Implement paddle movement.
+  // Maybe factor out user input at some point.
+  handleKeyPress(keydown = false, keyCode) {
+    if (keyCode === 37) {
+      this._leftPressed = keydown;
+    } else if (keyCode === 39) {
+      this._rightPressed = keydown;
+    }
     // TODO: Implement pause.
   }
 
