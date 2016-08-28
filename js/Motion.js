@@ -11,14 +11,14 @@ export default class {
     this._canvasObj = {};
   }
 
-  moveComputerActors(canvasWidth, canvasHeight) {
+  moveActors(canvasWidth, canvasHeight) {
     let actors = this._actorsInstance.get();
     for (let actorName in actors) {
       let actor = actors[actorName];
       if (Array.isArray(actor)) {
-        actor.forEach((a)=> a.computer ? a.move():null);
+        actor.forEach((a)=> a.move());
       } else {
-        actor.computer ? actor.move():null;
+        actor.move();
       }
     }
     this._actorsInstance.update(actors);

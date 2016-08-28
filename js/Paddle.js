@@ -12,8 +12,13 @@ export default class {
     this.color = color;
 
     this.position = new Vector(x, y);
+    this.speed = 2;
 
     this.computer = false;
+
+    // Control keys.
+    this.rightPressed = false;
+    this.leftPressed = false;
   }
 
   // Setting the paddle to a specific position.
@@ -22,7 +27,11 @@ export default class {
   }
 
   move() {
-    // TODO: Implement moveing paddle.
+    if (this.rightPressed) {
+      this.position.x += this.speed;
+    } else if (this.leftPressed) {
+      this.position.x -= this.speed;
+    }
   }
 
   // Returns relevant drawing information related to

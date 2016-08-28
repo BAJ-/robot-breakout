@@ -16,8 +16,6 @@ export default class {
 
     // Game settings.
     this._running = false;
-    this._rightPressed = false;
-    this._leftPressed = false;
 
     this._canvas = canvas;
     this._ctx = this._canvas.getContext("2d");
@@ -34,7 +32,7 @@ export default class {
 
   _drawScene() {
     this._clearScene();
-    this._motion.moveComputerActors(this._canvas.width, this._canvas.height);
+    this._motion.moveActors(this._canvas.width, this._canvas.height);
     this._drawActors();
     // TODO: Draw scene.
 
@@ -74,10 +72,11 @@ export default class {
   // appropriate actions.
   // Maybe factor out user input at some point.
   handleKeyPress(keydown = false, keyCode) {
+    let paddle = this._actors.get().paddle;
     if (keyCode === 37) {
-      this._leftPressed = keydown;
+      paddle.leftPressed = keydown;
     } else if (keyCode === 39) {
-      this._rightPressed = keydown;
+      paddle.rightPressed = keydown;
     }
     // TODO: Implement pause.
   }
