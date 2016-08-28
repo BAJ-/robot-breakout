@@ -23,14 +23,15 @@ export default class {
       let actor = actors[actorName];
       let collisionActor = collisionActors[actorName];
 
+      // This means we either have a ball or a brick.
       if (Array.isArray(actor)) {
         actor.forEach((a, i)=> {
           a.move();
           a.velocity = collisionActor[i].velocity;
         });
+        // This means the actor is the paddle.
       } else {
         actor.move(collisionActor.doMove);
-        actor.velocity = collisionActor.velocity;
       }
     }
     this._actorsInstance.update(actors);
