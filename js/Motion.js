@@ -8,7 +8,6 @@ import Vector from 'Vector.js';
 export default class {
   constructor(actorsInstance) {
     this._actorsInstance = actorsInstance;
-    this._canvasObj = {};
   }
 
   moveActors(canvasWidth, canvasHeight) {
