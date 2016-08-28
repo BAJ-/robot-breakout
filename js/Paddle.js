@@ -6,13 +6,13 @@
 import Vector from 'Vector.js';
 
 export default class {
-  constructor(x, y, width, height, color = '#FFFFFF') {
+  constructor(x, y, width, height, color = '#FFFFFF', speed = 3) {
     this.width = width;
     this.height = height;
     this.color = color;
 
     this.position = new Vector(x, y);
-    this.speed = 2;
+    this.velocity = new Vector(speed, 0);
 
     this.computer = false;
 
@@ -26,11 +26,16 @@ export default class {
     this.position.setCoordinates(x, y);
   }
 
-  move() {
-    if (this.rightPressed) {
-      this.position.x += this.speed;
-    } else if (this.leftPressed) {
-      this.position.x -= this.speed;
+  move(doMove) {
+    if (this.rightPressed || this.leftPressed) {
+      if (this.rightPressed) {
+        this.velocity.x = Math.abs(this.velocity.x);
+      } else if (this.leftPressed) {
+        this.velocity.x = -Math.abs(this.velocity.x);
+      }
+      if (doMove) {
+        this.position.add(this.velocity);
+      }
     }
   }
 
