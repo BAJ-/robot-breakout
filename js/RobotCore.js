@@ -27,7 +27,14 @@ export default class {
 
   _clearScene() {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-    // TODO: Draw background.
+    this._drawBackground();
+  }
+
+  // TODO: draw a real background.
+  _drawBackground() {
+    this._ctx.beginPath();
+    this._ctx.fillStyle = '#f1f1f1';
+    this._ctx.fillRect(0, 0, this._canvas.width, this._canvas.height);
   }
 
   _drawScene() {
