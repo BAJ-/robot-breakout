@@ -26,7 +26,7 @@ export default class {
         x: canvasWidth / 2,
         y: canvasHeight - 30,
         velocityX: 1,
-        velocityY: 1,
+        velocityY: -1,
         color: '#555555',
         radius: 10,
       };
