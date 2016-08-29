@@ -43,28 +43,31 @@ export default class {
     for (let actorName in actors) {
       let actor = actors[actorName];
       actor.doMove = true;
-      // Crazy paddle wall detection.
-      if (actorName === 'paddle') {
-        let futureX = actor.position.x + actor.velocity.x;
-        if (futureX < 0 || futureX > canvasWidth - actor.width) {
-          actor.doMove = false;
-        } else {
-          actor.doMove = true;
-        }
-      // Extremely simple collision detection only
-      // for balls.
-      } else if (actorName === 'balls') {
-        actor.forEach((ball)=> {
-          let futureX = ball.position.x + ball.velocity.x;
-          let futureY = ball.position.y + ball.velocity.y;
-          if (futureX > canvasWidth - ball.radius || futureX < ball.radius) {
-            ball.velocity.flipVertically();
-          }
-          if (futureY < ball.radius) {
-            ball.velocity.flipHorizontally();
-          }
-        });
+      if (Array.isArray(actor)) {
+        actor.forEach((a)=> this._doCollisionCheck(canvasWidth, canvasHeight, a, actorName));
+      } else {
+        this._doCollisionCheck(canvasWidth, canvasHeight, actor, actorName);
       }
+    }
+  }
+
+  _doCollisionCheck(canvasWidth, canvasHeight, actor, actorName) {
+    let futureX = actor.position.x + actor.velocity.x;
+    let futureY = actor.position.y + actor.velocity.y;
+    let leftX = actor.radius ? (futureX - actor.radius):futureX;
+    let rightX = actor.radius ? (futureX + actor.radius):(futureX + actor.width);
+    let topY = actor.radius ? (futureY - actor.radius):futureY;
+    // left wall <=> right wall
+    if (leftX < 0 || rightX > canvasWidth) {
+      if (actor.computer) {
+        actor.velocity.flipVertically();
+      } else {
+        actor.doMove = false;
+      }
+    }
+    // top wall
+    if (topY < 0) {
+      actor.velocity.flipHorizontally();
     }
   }
 }
