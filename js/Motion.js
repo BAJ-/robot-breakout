@@ -51,12 +51,14 @@ export default class {
     }
   }
 
+  // TODO: Make more simple. This is the BB method.
   _doCollisionCheck(canvasWidth, canvasHeight, actor, actorName) {
     let futureX = actor.position.x + actor.velocity.x;
     let futureY = actor.position.y + actor.velocity.y;
     let leftX = actor.radius ? (futureX - actor.radius):futureX;
     let rightX = actor.radius ? (futureX + actor.radius):(futureX + actor.width);
     let topY = actor.radius ? (futureY - actor.radius):futureY;
+    let bottomY = actor.radius ? (futureY + actor.radius):(futureY + actor.height);
     // left wall <=> right wall
     if (leftX < 0 || rightX > canvasWidth) {
       if (actor.computer) {
@@ -68,6 +70,20 @@ export default class {
     // top wall
     if (topY < 0) {
       actor.velocity.flipHorizontally();
+    }
+    // If we have computer controlled actors we need to do additional collision
+    // detection.
+    if (actor.computer) {
+      let paddle = this._actorsInstance.get().paddle;
+      let paddleLeftX = paddle.position.x;
+      let paddleRightX = paddle.position.x + paddle.width;
+      let paddleTopY = paddle.position.y;
+      let paddleBottomY = paddle.position.y - paddle.height;
+      if (leftX > paddleLeftX && rightX < paddleRightX) {
+        if (bottomY > paddleTopY) {
+          actor.velocity.flipHorizontally();
+        }
+      }
     }
   }
 }
