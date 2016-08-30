@@ -37,46 +37,51 @@ export default class {
   // Handles both ball, brick, paddle, and wall collisions.
   // TODO: Implement real collision detection.
   _handleCollision(canvasWidth, canvasHeight, actors) {
-    actors.forEach((actor)=> {
-      actor.doMove = true;
-      this._doCollisionCheck(canvasWidth, canvasHeight, actor);
-    });
+    this._doCollisionCheck(canvasWidth, canvasHeight, 0, 1, actors);
   }
 
   // TODO: Make more simple. This is the BB method.
-  _doCollisionCheck(canvasWidth, canvasHeight, actor) {
-    let futureX = actor.position.x + actor.velocity.x;
-    let futureY = actor.position.y + actor.velocity.y;
-    let leftX = actor.radius ? (futureX - actor.radius):futureX;
-    let rightX = actor.radius ? (futureX + actor.radius):(futureX + actor.width);
-    let topY = actor.radius ? (futureY - actor.radius):futureY;
-    let bottomY = actor.radius ? (futureY + actor.radius):(futureY + actor.height);
+  _doCollisionCheck(canvasWidth, canvasHeight, i, j, actors) {
+    let curActor = actors[i];
+    let obsActor = actors[j];
+
+    curActor.doMove = true;
+
+    let futureX = curActor.position.x + curActor.velocity.x;
+    let futureY = curActor.position.y + curActor.velocity.y;
+    let leftX = curActor.radius ? (futureX - curActor.radius):futureX;
+    let rightX = curActor.radius ? (futureX + curActor.radius):(futureX + curActor.width);
+    let topY = curActor.radius ? (futureY - curActor.radius):futureY;
+    let bottomY = curActor.radius ? (futureY + curActor.radius):(futureY + curActor.height);
     // left wall <=> right wall
     if (leftX < 0 || rightX > canvasWidth) {
-      if (actor.computer) {
-        actor.velocity.flipVertically();
+      if (curActor.computer) {
+        curActor.velocity.flipVertically();
       } else {
-        actor.doMove = false;
+        curActor.doMove = false;
       }
     }
     // top wall
     if (topY < 0) {
-      actor.velocity.flipHorizontally();
+      curActor.velocity.flipHorizontally();
     }
     // If we have computer controlled actors we need to do additional collision
     // detection.
-    if (actor.computer) {
-      // Paddle is always first.
-      let paddle = this._actorsInstance.get()[0];
-      let paddleLeftX = paddle.position.x;
-      let paddleRightX = paddle.position.x + paddle.width;
-      let paddleTopY = paddle.position.y;
-      let paddleBottomY = paddle.position.y - paddle.height;
-      if (leftX > paddleLeftX && rightX < paddleRightX) {
-        if (bottomY > paddleTopY) {
-          actor.velocity.flipHorizontally();
+    if (curActor.computer) {
+      let obsLeftX = obsActor.position.x;
+      let obsRightX = obsActor.position.x + obsActor.width;
+      let obsTopY = obsActor.position.y;
+      let obsBottomY = obsActor.position.y + obsActor.height;
+      if (leftX > obsLeftX && rightX < obsRightX) {
+        if ((bottomY > obsTopY && bottomY < obsBottomY) || (topY < obsBottomY && topY > obsTopY)) {
+          curActor.velocity.flipHorizontally();
         }
       }
+    }
+    if (actors[j + 1] !== undefined) {
+      this._doCollisionCheck(canvasWidth, canvasHeight, i, j + 1, actors);
+    } else if (actors[i + 1] !== undefined) {
+      this._doCollisionCheck(canvasWidth, canvasHeight, i + 1, 0, actors);
     }
   }
 }
