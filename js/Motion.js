@@ -44,15 +44,15 @@ export default class {
       let actor = actors[actorName];
       actor.doMove = true;
       if (Array.isArray(actor)) {
-        actor.forEach((a)=> this._doCollisionCheck(canvasWidth, canvasHeight, a, actorName));
+        actor.forEach((a)=> this._doCollisionCheck(canvasWidth, canvasHeight, a));
       } else {
-        this._doCollisionCheck(canvasWidth, canvasHeight, actor, actorName);
+        this._doCollisionCheck(canvasWidth, canvasHeight, actor);
       }
     }
   }
 
   // TODO: Make more simple. This is the BB method.
-  _doCollisionCheck(canvasWidth, canvasHeight, actor, actorName) {
+  _doCollisionCheck(canvasWidth, canvasHeight, actor) {
     let futureX = actor.position.x + actor.velocity.x;
     let futureY = actor.position.y + actor.velocity.y;
     let leftX = actor.radius ? (futureX - actor.radius):futureX;
