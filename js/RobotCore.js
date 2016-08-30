@@ -79,7 +79,7 @@ export default class {
   // appropriate actions.
   // Maybe factor out user input at some point.
   handleKeyPress(keydown = false, keyCode) {
-    let paddle = this._actors.get().paddle;
+    let paddle = this._actors.get()[0];
     if (keyCode === 37) {
       paddle.leftPressed = keydown;
     } else if (keyCode === 39) {
