@@ -6,14 +6,22 @@
 import Vector from 'Vector.js';
 
 export default class {
-  constructor(x, y, width, height, color = '#FFFFFF') {
+  constructor(x, y, xV, yV, width, height, color = '#FFFFFF') {
     this.width = width;
     this.height = height;
     this.color = color;
 
     this.position = new Vector(x, y);
+    this.velocity = new Vector(xV, yV);
 
     this.computer = true;
+  }
+
+  // Move brick according to the velocity vector.
+  move() {
+    if (this.velocity.length() > 0) {
+      this.position.add(this.velocity);
+    }
   }
 
   // Returns drawing information for a brick instance.
