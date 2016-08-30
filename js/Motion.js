@@ -13,42 +13,34 @@ export default class {
   moveActors(canvasWidth, canvasHeight) {
     let actors = this._actorsInstance.get();
     // We clone the actors to do a pre-move collision handling.
-    let collisionActors = Object.assign({}, actors);
+    let collisionActors = Object.assign([], actors);
 
     // The main reason for doing this instead of post-move collision
     // handling is paddle movement issues.
     this._handleCollision(canvasWidth, canvasHeight, collisionActors);
 
-    for (let actorName in actors) {
-      let actor = actors[actorName];
-      let collisionActor = collisionActors[actorName];
+    actors.forEach((actor, idx)=> {
+      let collisionActor = collisionActors[idx];
 
       // This means we either have a ball or a brick.
-      if (Array.isArray(actor)) {
-        actor.forEach((a, i)=> {
-          a.move();
-          a.velocity = collisionActor[i].velocity;
-        });
-        // This means the actor is the paddle.
+      if (actor.computer) {
+        actor.move();
+        actor.velocity = collisionActor.velocity;
+      // This means the actor is the paddle.
       } else {
         actor.move(collisionActor.doMove);
       }
-    }
+    });
     this._actorsInstance.update(actors);
   }
 
   // Handles both ball, brick, paddle, and wall collisions.
   // TODO: Implement real collision detection.
   _handleCollision(canvasWidth, canvasHeight, actors) {
-    for (let actorName in actors) {
-      let actor = actors[actorName];
+    actors.forEach((actor)=> {
       actor.doMove = true;
-      if (Array.isArray(actor)) {
-        actor.forEach((a)=> this._doCollisionCheck(canvasWidth, canvasHeight, a));
-      } else {
-        this._doCollisionCheck(canvasWidth, canvasHeight, actor);
-      }
-    }
+      this._doCollisionCheck(canvasWidth, canvasHeight, actor);
+    });
   }
 
   // TODO: Make more simple. This is the BB method.
@@ -74,7 +66,8 @@ export default class {
     // If we have computer controlled actors we need to do additional collision
     // detection.
     if (actor.computer) {
-      let paddle = this._actorsInstance.get().paddle;
+      // Paddle is always first.
+      let paddle = this._actorsInstance.get()[0];
       let paddleLeftX = paddle.position.x;
       let paddleRightX = paddle.position.x + paddle.width;
       let paddleTopY = paddle.position.y;

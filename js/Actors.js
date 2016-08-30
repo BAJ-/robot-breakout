@@ -9,13 +9,9 @@ import GameInit from 'GameInit.js';
 
 export default class {
   constructor(canvasWidth, canvasHeight) {
-    this._actors = {
-      paddle: {},
-      balls: [],
-      bricks: []
-    };
+    this._actors = [];
 
-   this._gameInit = new GameInit(canvasWidth, canvasHeight);
+    this._gameInit = new GameInit(canvasWidth, canvasHeight);
 
     // Initialize actors.
     this._initActors();
@@ -36,21 +32,31 @@ export default class {
     // TODO: Initialize actors.
     let inits = this._gameInit.gameInits;
     let paddle = inits.paddle;
-    this._actors.paddle = new Paddle(
+    this._actors.push(new Paddle(
           paddle.x,
           paddle.y,
           paddle.width,
           paddle.height,
           paddle.color
-        );
+        ));
     let ball = inits.ball;
-    this._actors.balls.push(new Ball(
+    this._actors.push(new Ball(
           ball.x,
           ball.y,
           ball.velocityX,
           ball.velocityY,
           ball.radius,
           ball.color
+        ));
+    let brick = inits.brick;
+    this._actors.push(new Brick(
+          brick.x,
+          brick.y,
+          brick.velocityX,
+          brick.velocityY,
+          brick.width,
+          brick.height,
+          brick.color
         ));
   }
 }

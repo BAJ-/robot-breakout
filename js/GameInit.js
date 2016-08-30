@@ -25,10 +25,21 @@ export default class {
       return {
         x: canvasWidth / 2,
         y: canvasHeight - 30,
-        velocityX: 1,
+        velocityX: -1,
         velocityY: -1,
         color: '#555555',
         radius: 10,
+      };
+    })();
+    this.gameInits.brick = (()=> {
+      return {
+        x: 0,
+        y: canvasHeight - 60,
+        velocityX: 0,
+        velocityY: 0,
+        color: '#555555',
+        width: 100,
+        height: 6
       };
     })();
   }
