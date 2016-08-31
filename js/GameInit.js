@@ -31,16 +31,30 @@ export default class {
         radius: 10,
       };
     })();
-    this.gameInits.brick = (()=> {
-      return {
-        x: 0,
-        y: canvasHeight - 60,
-        velocityX: 0,
-        velocityY: 0,
-        color: '#555555',
-        width: 100,
-        height: 6
-      };
+    this.gameInits.bricks = (()=> {
+      let columns = 4;
+      let rows = 4;
+      let bricks = Array(columns).fill().map(() => Array(rows));
+      let brickWidth = 50;
+      let brickHeight = 8;
+      let bottomPadding = 60;
+
+      let paddingX = (canvasWidth - (rows * brickWidth)) / (rows + 1);
+      let paddingY = (canvasHeight - bottomPadding - (columns * brickHeight)) / (columns + 1)
+      for(let col = 0; col < columns; col++) {
+        for(let row = 0; row < rows; row++) {
+          bricks[col][row] = {
+            x: (brickWidth * row) + paddingX * (1 + row),
+            y: (brickHeight * col) + paddingY * (1 + col),
+            velocityX: 0,
+            velocityY: 0,
+            color: '#555555',
+            width: brickWidth,
+            height: brickHeight
+          }
+        }
+      }
+      return bricks;
     })();
   }
 };

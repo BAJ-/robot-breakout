@@ -48,15 +48,19 @@ export default class {
           ball.radius,
           ball.color
         ));
-    let brick = inits.brick;
-    this._actors.push(new Brick(
-          brick.x,
-          brick.y,
-          brick.velocityX,
-          brick.velocityY,
-          brick.width,
-          brick.height,
-          brick.color
-        ));
+    let bricks = inits.bricks;
+    bricks.forEach(bricksArr => {
+      bricksArr.forEach(brick => {
+        this._actors.push(new Brick(
+              brick.x,
+              brick.y,
+              brick.velocityX,
+              brick.velocityY,
+              brick.width,
+              brick.height,
+              brick.color
+            ));
+      });
+    });
   }
 }
