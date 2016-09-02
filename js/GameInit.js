@@ -34,7 +34,7 @@ export default class {
     this.gameInits.bricks = (()=> {
       let columns = 4;
       let rows = 4;
-      let bricks = Array(columns).fill().map(() => Array(rows));
+      let bricks = [];
       let brickWidth = 50;
       let brickHeight = 8;
       let bottomPadding = 60;
@@ -42,6 +42,7 @@ export default class {
       let paddingX = (canvasWidth - (rows * brickWidth)) / (rows + 1);
       let paddingY = (canvasHeight - bottomPadding - (columns * brickHeight)) / (columns + 1)
       for(let col = 0; col < columns; col++) {
+        bricks[col] = [];
         for(let row = 0; row < rows; row++) {
           bricks[col][row] = {
             x: (brickWidth * row) + paddingX * (1 + row),
