@@ -46,6 +46,11 @@ export default class {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
+  getProjectionOnTo(vector) {
+    let scale = this.dotProduct(vector) / vector.dotProduct(vector);
+    return new Vector(this.x, this.y).multiply(scale);
+  }
+
   // Rotates the vector instance by the given radian.
   rotate(rad) {
     this.x = (Math.cos(rad) * this.x) - (Math.sin(rad) * this.y);
